@@ -46,7 +46,7 @@ module Devise
           counter = ::MongoMapper::ValidationUtil.inc_counter
         
           handle_email(name, counter) if name == :email          
-          handle_length(name, counter, length_option) if length_option
+          handle_length(name, counter, length_option) if (length_option && type != Integer)
           handle_required(name, counter) if required_option                               
         end  
         
