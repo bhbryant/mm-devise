@@ -29,8 +29,7 @@ module Devise
         def orm_options=(options)
           @@orm_options = options
         end
-   
-                     
+                 
       end
     end
   end

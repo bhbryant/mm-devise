@@ -20,8 +20,22 @@ module Devise
           
           yield
           return unless Devise.apply_schema
-          devise_modules.each { |m| send(m) if respond_to?(m, true) }
+           devise_modules.each do |m|
+            if respond_to?(m, true) 
+              if defined?(@@orm_options) && @@orm_options.has_key?(m)
+                 send(m, @@orm_options[m] ) 
+               else
+                 send(m)
+              end
+            end
+          end
+          
         end
+        
+        def orm_options=(options)
+          @@orm_options = options
+        end
+               
       end
 
       # http://github.com/jkaramon/mongomapper/blob/rails3/lib/mongo_mapper/plugins/validations.rb
